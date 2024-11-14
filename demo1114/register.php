@@ -1,5 +1,6 @@
 <?php
 // register.php - Registration page
+// Testing the push commit
 session_start();
 require_once 'config.php';
 require_once 'auth.php';
