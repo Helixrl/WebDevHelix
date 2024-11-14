@@ -1,5 +1,5 @@
 <?php
-// Testing the push commit
+
 session_start();
 require_once 'auth.php';
 

@@ -1,6 +1,5 @@
 <?php
 // config.php - Database configuration
-// Testing the push commit
 $host = 'localhost'; 
 $dbname = 'books'; 
 $user = 'mark'; 

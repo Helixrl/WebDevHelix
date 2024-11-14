@@ -1,6 +1,5 @@
 <?php
 // auth.php - Authentication functions
-// Testing the push commit
 function register_user($pdo, $username, $password) {
     try {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
