@@ -10,7 +10,7 @@ if (!is_logged_in()) {
 }
 
 $host = 'localhost'; 
-$dbname = 'books'; 
+$dbname = 'songs'; 
 $user = 'chase'; 
 $pass = 'chase';
 $charset = 'utf8mb4';
@@ -28,11 +28,11 @@ try {
     throw new PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-// Handle book search
+// Handle songs search
 $search_results = null;
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search_term = '%' . $_GET['search'] . '%';
-    $search_sql = 'SELECT id, author, title, publisher FROM books WHERE title LIKE :search';
+    $search_sql = 'SELECT id, artist, title, real_name FROM songs WHERE title LIKE :search';
     $search_stmt = $pdo->prepare($search_sql);
     $search_stmt->execute(['search' => $search_term]);
     $search_results = $search_stmt->fetchAll();
@@ -40,27 +40,27 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['author']) && isset($_POST['title']) && isset($_POST['publisher'])) {
+    if (isset($_POST['artist']) && isset($_POST['title']) && isset($_POST['real_name'])) {
         // Insert new entry
-        $author = htmlspecialchars($_POST['author']);
+        $artist = htmlspecialchars($_POST['artist']);
         $title = htmlspecialchars($_POST['title']);
-        $publisher = htmlspecialchars($_POST['publisher']);
+        $real_name = htmlspecialchars($_POST['real_name']);
         
-        $insert_sql = 'INSERT INTO books (author, title, publisher) VALUES (:author, :title, :publisher)';
+        $insert_sql = 'INSERT INTO songs (artist, title, real_name) VALUES (:artist, :title, :real_name)';
         $stmt_insert = $pdo->prepare($insert_sql);
-        $stmt_insert->execute(['author' => $author, 'title' => $title, 'publisher' => $publisher]);
+        $stmt_insert->execute(['artist' => $artist, 'title' => $title, 'real_name' => $real_name]);
     } elseif (isset($_POST['delete_id'])) {
         // Delete an entry
         $delete_id = (int) $_POST['delete_id'];
         
-        $delete_sql = 'DELETE FROM books WHERE id = :id';
+        $delete_sql = 'DELETE FROM songs WHERE id = :id';
         $stmt_delete = $pdo->prepare($delete_sql);
         $stmt_delete->execute(['id' => $delete_id]);
     }
 }
 
-// Get all books for main table
-$sql = 'SELECT id, author, title, publisher FROM books';
+// Get all songs for main table
+$sql = 'SELECT id, artist, title, real_name FROM songs';
 $stmt = $pdo->query($sql);
 ?>
 
@@ -68,18 +68,18 @@ $stmt = $pdo->query($sql);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Betty's Book Banning and Bridge Building</title>
+    <title>Chases Songs</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Hero Section -->
     <div class="hero-section">
-        <h1 class="hero-title">Betty's Book Banning and Bridge Building</h1>
-        <p class="hero-subtitle">"Because nothing brings a community together like collectively deciding what others shouldn't read!"</p>
+        <h1 class="hero-title">Chases Songs</h1>
+        <p class="hero-subtitle">"Because nothing brings a community together like Music"</p>
         
         <!-- Search moved to hero section -->
         <div class="hero-search">
-            <h2>Search for a Book to Ban</h2>
+            <h2>Search for a Song to Ban</h2>
             <form action="" method="GET" class="search-form">
                 <label for="search">Search by Title:</label>
                 <input type="text" id="search" name="search" required>
@@ -94,9 +94,9 @@ $stmt = $pdo->query($sql);
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Author</th>
+                                    <th>Artist</th>
                                     <th>Title</th>
-                                    <th>Publisher</th>
+                                    <th>Real Name</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -104,9 +104,9 @@ $stmt = $pdo->query($sql);
                                 <?php foreach ($search_results as $row): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($row['id']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['author']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['artist']); ?></td>
                                     <td><?php echo htmlspecialchars($row['title']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['publisher']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['real_name']); ?></td>
                                     <td>
                                         <form action="index5.php" method="post" style="display:inline;">
                                             <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
@@ -118,7 +118,7 @@ $stmt = $pdo->query($sql);
                             </tbody>
                         </table>
                     <?php else: ?>
-                        <p>No books found matching your search.</p>
+                        <p>No songs found matching your search.</p>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
@@ -127,14 +127,14 @@ $stmt = $pdo->query($sql);
 
     <!-- Table section with container -->
     <div class="table-container">
-        <h2>All Books in Database</h2>
+        <h2>All Songs in Database</h2>
         <table class="half-width-left-align">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Author</th>
+                    <th>Artist</th>
                     <th>Title</th>
-                    <th>Publisher</th>
+                    <th>Real Name</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -142,9 +142,9 @@ $stmt = $pdo->query($sql);
                 <?php while ($row = $stmt->fetch()): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($row['id']); ?></td>
-                    <td><?php echo htmlspecialchars($row['author']); ?></td>
+                    <td><?php echo htmlspecialchars($row['artist']); ?></td>
                     <td><?php echo htmlspecialchars($row['title']); ?></td>
-                    <td><?php echo htmlspecialchars($row['publisher']); ?></td>
+                    <td><?php echo htmlspecialchars($row['real_name']); ?></td>
                     <td>
                         <form action="index5.php" method="post" style="display:inline;">
                             <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
@@ -159,18 +159,18 @@ $stmt = $pdo->query($sql);
 
     <!-- Form section with container -->
     <div class="form-container">
-        <h2>Condemn a Book Today</h2>
+        <h2>Condemn a Song Today</h2>
         <form action="index5.php" method="post">
-            <label for="author">Author:</label>
-            <input type="text" id="author" name="author" required>
+            <label for="artist">Artist:</label>
+            <input type="text" id="artist" name="artist" required>
             <br><br>
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
             <br><br>
-            <label for="publisher">Publisher:</label>
-            <input type="text" id="publisher" name="publisher" required>
+            <label for="real_name">Real Name:</label>
+            <input type="text" id="real_name" name="real_name" required>
             <br><br>
-            <input type="submit" value="Condemn Book">
+            <input type="submit" value="Condemn Song">
         </form>
     </div>
 </body>

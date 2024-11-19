@@ -18,35 +18,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `books`
+-- Database: `songs`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `books`
+-- Table structure for table `songs`
 --
 
-CREATE TABLE `books` (
+CREATE TABLE `songs` (
   `id` int NOT NULL,
-  `author` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `artist` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `title` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  `publisher` varchar(45) COLLATE utf8mb4_general_ci NOT NULL
+  `real_name` varchar(45) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `books`
+-- Dumping data for table `songs`
 --
 
-INSERT INTO `books` (`id`, `author`, `title`, `publisher`) VALUES
-(1, 'Miller', 'My Life', 'Penguin'),
-(2, 'Smith', 'Your Life', 'Lion'),
-(3, 'Jones', 'Their Life', 'Penguin'),
-(4, 'Young', 'Nobody\'s Life', 'Ostrich'),
-(5, 'Anderson', 'Their Lives', 'Ostrich'),
-(6, 'Kettleman', 'Everybody\'s Life', 'Penguin'),
-(7, 'Charleston', 'My Lives', 'Penguin'),
-(8, 'Darby', 'Nobody\'s Lives', 'Otter');
+INSERT INTO `songs` (`id`, `artist`, `title`, `real_name`) VALUES
+(1, 'Travis Scott', 'FE!N', 'Jacques Bermon Webster II'),
+(2, 'NBA YoungBoy', 'Make No Sense', 'Kentrell DeSean Gaulden'),
+(3, 'Baby Kia', 'Lets Play A Game', 'Khari Jahmill Hoard'),
+(4, 'Rod Wave', 'Girl Of My Dreams', 'Rodarius Marcell Green'),
+(5, 'Alicia Keys', 'If I Aint Got You', 'Alicia Augello Cook'),
+(6, 'BossMan Dlow', 'Muscle Up', 'Devante McCreary'),
+(7, 'Lil Baby', 'Not Finished', 'Dominique Armani Jones'),
+(8, 'Skilla Baby', 'Richie', 'Trevon Gardner');
 
 -- --------------------------------------------------------
 
@@ -74,9 +74,9 @@ INSERT INTO `users` (`id`, `username`, `password`, `created_at`) VALUES
 --
 
 --
--- Indexes for table `books`
+-- Indexes for table `songs`
 --
-ALTER TABLE `books`
+ALTER TABLE `songs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -91,9 +91,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `books`
+-- AUTO_INCREMENT for table `songs`
 --
-ALTER TABLE `books`
+ALTER TABLE `songs`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
